@@ -9,9 +9,9 @@ import StudentView from '@/views/StudentView.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const routes = [
-  { path: '/', name: 'Home', component: HomeView },
+  { path: '/', name: 'Home', component: LoginView },
   { path: '/about', name: 'About', component: AboutView },
-  { path: '/login', name: 'Login', component: LoginView },
+  { path: '/login', name: 'Login', redirect: { name: 'Home' } },
   {
     path: '/quiz',
     name: 'Quiz',
