@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useQuizStore } from '@/stores/quiz';
+import { useHistoricStore } from '@/stores/historic';
 import QuizItem from './QuizItem.vue';
 import IconA from './icons/IconA.vue';
 import IconB from './icons/IconB.vue';
@@ -9,8 +10,8 @@ import IconD from './icons/IconD.vue';
 import IconE from './icons/IconE.vue';
 
 const icons = [IconA, IconB, IconC, IconD, IconE];
-
 const quiz = useQuizStore();
+const historic = useHistoricStore();
 
 const currentQuestion = computed(() => {
   if (!quiz.currentQuestion()) return null;
@@ -25,7 +26,7 @@ const currentQuestion = computed(() => {
 });
 
 const showExplanation = ref(false);
-
+const showFeedback = ref(false);
 const isLocked = ref(false);
 
 const checkAnswer = (answerText: string) => {
@@ -47,7 +48,22 @@ const correctLetter = computed(() => {
   );
   return correctOption ? correctOption.letter : '';
 });
+
+const saveToHistory = () => {
+  historic.addCompletedQuiz(
+    quiz.currentQuiz()?.id || 0,
+    quiz.correctAnswers,
+    quiz.totalQuestions
+  );
+};
+
+const onFinish = () => {
+  saveToHistory();
+  quiz.selectQuiz(null); 
+  showFeedback.value = false; 
+}
 </script>
+
 
 <template>
   <div>
@@ -106,11 +122,19 @@ const correctLetter = computed(() => {
       </button>
 
       <button
-        v-if="quiz.isCorrect !== null"
+        v-if="!quiz.isQuizCompleted && quiz.isCorrect !== null"
         @click="nextQuestion"
         class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
       >
         Próxima Pergunta
+      </button>
+
+      <button
+        v-if="quiz.isQuizCompleted"
+        @click="showFeedback = true"
+        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+      >
+        Mostrar Feedback
       </button>
     </div>
 
@@ -129,6 +153,25 @@ const correctLetter = computed(() => {
             @click="showExplanation = false"
           >
             Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      v-if="showFeedback"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+    >
+      <div class="bg-white p-6 rounded shadow-md max-w-md w-full">
+        <h2 class="text-xl font-semibold mb-4">Feedback do Quiz</h2>
+        <p class="text-gray-700">Parabéns por concluir o quiz!</p>
+        <p class="text-gray-700 mt-4">Você acertou {{ quiz.correctAnswers }} de {{ quiz.totalQuestions }} perguntas.</p>
+        <div class="mt-6 text-right">
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            @click="onFinish()"
+          >
+            Voltar para a lista de quizzes
           </button>
         </div>
       </div>
