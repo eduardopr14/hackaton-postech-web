@@ -8,13 +8,10 @@ import IconC from './icons/IconC.vue';
 import IconD from './icons/IconD.vue';
 import IconE from './icons/IconE.vue';
 
-// Ícones das respostas
 const icons = [IconA, IconB, IconC, IconD, IconE];
 
-// Store do quiz
 const quiz = useQuizStore();
 
-// Pergunta atual com ícones associados às respostas
 const currentQuestion = computed(() => {
   if (!quiz.currentQuestion()) return null;
   return {
@@ -22,31 +19,26 @@ const currentQuestion = computed(() => {
     answers: quiz.currentQuestion().answers.map((answer, index) => ({
       text: answer,
       icon: icons[index % icons.length],
-      letter: String.fromCharCode(65 + index), // Gera A, B, C, etc.
+      letter: String.fromCharCode(65 + index),
     })),
   };
 });
 
-// Controle de popup de explicação
 const showExplanation = ref(false);
 
-// Bloqueio de interação após resposta
 const isLocked = ref(false);
 
-// Método para verificar a resposta e bloquear interação
 const checkAnswer = (answerText: string) => {
   if (isLocked.value) return;
   quiz.checkAnswer(answerText);
   isLocked.value = true;
 };
 
-// Reabilitar interação ao avançar para próxima pergunta
 const nextQuestion = () => {
   quiz.nextQuestion();
   isLocked.value = false;
 };
 
-// Localiza a letra correspondente à resposta correta
 const correctLetter = computed(() => {
   if (!currentQuestion.value) return '';
   const correctAnswer = currentQuestion.value.correct;
@@ -59,17 +51,14 @@ const correctLetter = computed(() => {
 
 <template>
   <div>
-    <!-- Pergunta -->
     <p class="text-lg text-gray-700 mb-12 ml-4">{{ currentQuestion?.question }}</p>
 
-    <!-- Respostas -->
     <div class="space-y-8">
       <QuizItem
         v-for="(answer, index) in currentQuestion?.answers"
         :key="index"
       >
         <template #icon>
-          <!-- Ícone interativo com destaque baseado no estado -->
           <div
             @click="checkAnswer(answer.text)"
             :class="[
@@ -90,7 +79,6 @@ const correctLetter = computed(() => {
       </QuizItem>
     </div>
 
-    <!-- Mensagem de feedback -->
     <p
       v-if="quiz.isCorrect !== null"
       class="mt-12 ml-4 text-lg font-semibold"
@@ -102,7 +90,6 @@ const correctLetter = computed(() => {
       {{ quiz.isCorrect ? 'Resposta Correta!' : `Resposta Errada!` }}
     </p>
 
-    <!-- Indicação da resposta correta -->
     <p
       v-if="!quiz.isCorrect && quiz.isCorrect !== null"
       class="text-gray-700 text-md mt-2 ml-4"
@@ -110,9 +97,7 @@ const correctLetter = computed(() => {
       A alternativa correta era a letra {{ correctLetter }}.
     </p>
 
-    <!-- Botões de próxima pergunta e explicação -->
     <div class="flex items-center mt-6 ml-4 space-x-4">
-      <!-- Botão de explicação -->
       <button
         class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
         @click="showExplanation = true"
@@ -120,7 +105,6 @@ const correctLetter = computed(() => {
         Ver Explicação
       </button>
 
-      <!-- Botão de próxima pergunta -->
       <button
         v-if="quiz.isCorrect !== null"
         @click="nextQuestion"
@@ -130,7 +114,6 @@ const correctLetter = computed(() => {
       </button>
     </div>
 
-    <!-- Popup de explicação -->
     <div
       v-if="showExplanation"
       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
