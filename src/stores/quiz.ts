@@ -1,39 +1,114 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 export const useQuizStore = defineStore('quiz', () => {
-  const questions = ref([
+  const quizzes = ref([
     {
-      question: 'Qual é a capital da França?',
-      answers: ['Paris', 'Londres', 'Berlim', 'Roma'],
-      correct: 'Paris',
-      explanation: 'Paris é a capital da França, conhecida como a Cidade Luz.',
+      id: 1,
+      title: 'Aula de História',
+      description: '10 perguntas sobre eventos históricos importantes.',
+      questions: [
+        {
+          question: 'Qual é a capital da França?',
+          answers: ['Paris', 'Londres', 'Berlim', 'Roma'],
+          correct: 'Paris',
+          explanation: 'Paris é a capital da França, conhecida como a Cidade Luz.',
+        },
+        {
+          question: 'Em que ano começou a Primeira Guerra Mundial?',
+          answers: ['1914', '1939', '1945', '1920'],
+          correct: '1914',
+          explanation: 'A Primeira Guerra Mundial começou em 1914 e terminou em 1918.',
+        },
+      ],
     },
     {
-      question: 'Qual é o maior planeta do sistema solar?',
-      answers: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
-      correct: 'Júpiter',
-      explanation: 'Júpiter é o maior planeta, com diâmetro de 139.820 km.',
+      id: 2,
+      title: 'Aula de Química',
+      description: '5 perguntas sobre conceitos básicos de química.',
+      questions: [
+        {
+          question: 'Qual é o símbolo químico da água?',
+          answers: ['H2O', 'O2', 'CO2', 'NaCl'],
+          correct: 'H2O',
+          explanation: 'A água é representada pela fórmula H2O.',
+        },
+      ],
+    },
+    {
+      id: 3,
+      title: 'Aula de Português',
+      description: '5 perguntas sobre gramática e ortografia.',
+      questions: [
+        {
+          question: 'Qual a palavra correta: "viajem" ou "viagem"?',
+          answers: ['Viajem', 'Viagem'],
+          correct: 'Viagem',
+          explanation: 'Viagem é o substantivo; viajem é a forma verbal.',
+        },
+      ],
     },
   ]);
 
+  const selectedQuizIndex = ref<number | null>(null);
   const currentQuestionIndex = ref(0);
   const isCorrect = ref<boolean | null>(null);
+  const isQuizCompleted = ref(false);
+  const correctAnswers = ref(0);
 
-  const currentQuestion = () => questions.value[currentQuestionIndex.value];
+  const totalQuestions = computed(() => {
+    const quiz = currentQuiz();
+    return quiz ? quiz.questions.length : 0;
+  });
 
-  const checkAnswer = (answer: string) => {
-    isCorrect.value = answer === currentQuestion().correct;
+  const selectQuiz = (index: number | null) => {
+    selectedQuizIndex.value = index;
+    currentQuestionIndex.value = 0;
+    isCorrect.value = null;
+    isQuizCompleted.value = false;
+    correctAnswers.value = 0;
   };
 
-  const nextQuestion = () => {
-    if (currentQuestionIndex.value < questions.value.length - 1) {
-      currentQuestionIndex.value++;
-      isCorrect.value = null;
-    } else {
-      alert('Quiz concluído!');
+  const currentQuiz = () => {
+    return selectedQuizIndex.value !== null ? quizzes.value[selectedQuizIndex.value - 1] : null;
+  };
+
+  const currentQuestion = () => {
+    const quiz = currentQuiz();
+    return quiz ? quiz.questions[currentQuestionIndex.value] : null;
+  };
+
+  const checkAnswer = (answer: string) => {
+    if (currentQuestion()) {
+      isCorrect.value = answer === currentQuestion()!.correct;
+      if (isCorrect.value) {
+        correctAnswers.value++;
+      }
     }
   };
 
-  return { questions, currentQuestionIndex, currentQuestion, isCorrect, checkAnswer, nextQuestion };
+  const nextQuestion = () => {
+    const quiz = currentQuiz();
+    if (quiz && currentQuestionIndex.value < quiz.questions.length - 1) {
+      currentQuestionIndex.value++;
+      isCorrect.value = null;
+    } else {
+      isQuizCompleted.value = true;
+    }
+  };
+
+  return {
+    quizzes,
+    selectedQuizIndex,
+    currentQuestionIndex,
+    isCorrect,
+    selectQuiz,
+    currentQuiz,
+    currentQuestion,
+    checkAnswer,
+    nextQuestion,
+    isQuizCompleted,
+    totalQuestions,
+    correctAnswers,
+  };
 });
