@@ -1,6 +1,5 @@
 // src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
 import AboutView from '@/views/AboutView.vue';
 import LoginView from '@/views/LoginView.vue';
 import QuizView from '@/views/QuizView.vue';
@@ -18,7 +17,7 @@ const routes = [
     component: QuizView,
     beforeEnter: (_to: any, _from: any, next: Function) => {
       const auth = useAuthStore();
-      if (auth.isLoggedIn) next();
+      if (auth.isLoggedIn && auth.userType === 'S') next();
       else next('/login');
     },
   },
