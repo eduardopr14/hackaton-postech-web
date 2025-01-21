@@ -7,11 +7,13 @@ export const useQuizStore = defineStore('quiz', () => {
       question: 'Qual é a capital da França?',
       answers: ['Paris', 'Londres', 'Berlim', 'Roma'],
       correct: 'Paris',
+      explanation: 'Paris é a capital da França, conhecida como a Cidade Luz.',
     },
     {
-      question: 'Qual é 2 + 2?',
-      answers: ['3', '4', '5', '6'],
-      correct: '4',
+      question: 'Qual é o maior planeta do sistema solar?',
+      answers: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
+      correct: 'Júpiter',
+      explanation: 'Júpiter é o maior planeta, com diâmetro de 139.820 km.',
     },
   ]);
 

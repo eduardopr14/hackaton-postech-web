@@ -1,8 +1,17 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <About />
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import About from '@/components/About.vue';
+
+export default defineComponent({
+  components: { About },
+});
+</script>
 
 <style>
 @media (min-width: 1024px) {

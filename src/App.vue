@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
+import MainMessage from './components/MainMessage.vue'
+import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
@@ -16,22 +17,8 @@ import HelloWorld from './components/HelloWorld.vue'
         />
 
         <div class="wrapper lg:flex lg:items-start lg:flex-wrap">
-          <HelloWorld message="Quiz App" />
-
-          <nav class="w-full text-center mt-8 text-xs lg:text-left lg:mt-4 lg:ml-[-1rem] lg:text-base lg:py-4">
-            <RouterLink
-              to="/"
-              class="inline-block px-4 border-l border-black first-of-type:border-0 text-green-700 transition duration-400 hover:bg-green-100"
-            >
-              Home
-            </RouterLink>
-            <RouterLink
-              to="/about"
-              class="inline-block px-4 border-l border-black first-of-type:border-0 text-green-700 transition duration-400 hover:bg-green-100"
-            >
-              About
-            </RouterLink>
-          </nav>
+          <MainMessage main-text="Quiz App" />
+          <Navbar />
         </div>
       </header>
 
