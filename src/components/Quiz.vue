@@ -29,10 +29,39 @@ const showExplanation = ref(false);
 const showFeedback = ref(false);
 const isLocked = ref(false);
 
+const sendAnswer = (answerText: string, currentQuestion: any) => {
+  checkAnswer(answerText)
+  saveHistoric(answerText, currentQuestion)
+};
+
 const checkAnswer = (answerText: string) => {
   if (isLocked.value) return;
   quiz.checkAnswer(answerText);
   isLocked.value = true;
+};
+
+const saveHistoric = (answerText: string, currentQuestion: any) => {
+  const answers = currentQuestion.answers.map((item: { text: any; letter: any; }) => ({
+    text: item.text,
+    letter: item.letter,
+  }));
+  const correctAnswer = currentQuestion.answers.find((answer: { text: any; }) => answer.text === currentQuestion.correct);
+  const correctLetter = correctAnswer ? correctAnswer.letter : undefined;
+  const givenAnswerLetter = currentQuestion.answers.find((answer: { text: any; }) => answer.text === answerText).letter;
+  const isItRight = answerText == currentQuestion.correct;
+  historic.addInfoCompletedQuiz(
+  quiz.currentQuiz()?.id || 0, 
+    [
+      {
+        questionId: currentQuestion.id,
+        questionAnswered: currentQuestion.question,
+        answers: answers,
+        givenAnswer: givenAnswerLetter,
+        correctAnswer: correctLetter,
+        isItRight: isItRight
+      }
+    ]
+  );
 };
 
 const nextQuestion = () => {
@@ -76,7 +105,7 @@ const onFinish = () => {
       >
         <template #icon>
           <div
-            @click="checkAnswer(answer.text)"
+            @click="sendAnswer(answer.text, currentQuestion)"
             :class="[
               'mr-12 rounded p-2 border-2 cursor-pointer transition',
               isLocked
@@ -115,6 +144,7 @@ const onFinish = () => {
 
     <div class="flex items-center mt-6 ml-4 space-x-4">
       <button
+        v-if="!quiz.isQuizCompleted && quiz.isCorrect !== null"
         class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
         @click="showExplanation = true"
       >

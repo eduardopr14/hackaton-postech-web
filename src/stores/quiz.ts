@@ -9,12 +9,14 @@ export const useQuizStore = defineStore('quiz', () => {
       description: '10 perguntas sobre eventos históricos importantes.',
       questions: [
         {
+          id: 1,
           question: 'Qual é a capital da França?',
           answers: ['Paris', 'Londres', 'Berlim', 'Roma'],
           correct: 'Paris',
           explanation: 'Paris é a capital da França, conhecida como a Cidade Luz.',
         },
         {
+          id: 2,
           question: 'Em que ano começou a Primeira Guerra Mundial?',
           answers: ['1914', '1939', '1945', '1920'],
           correct: '1914',
@@ -28,8 +30,9 @@ export const useQuizStore = defineStore('quiz', () => {
       description: '5 perguntas sobre conceitos básicos de química.',
       questions: [
         {
+          id: 1,
           question: 'Qual é o símbolo químico da água?',
-          answers: ['H2O', 'O2', 'CO2', 'NaCl'],
+          answers: ['H2O', 'O2', 'CO2', 'NaCl', "X"],
           correct: 'H2O',
           explanation: 'A água é representada pela fórmula H2O.',
         },
@@ -41,6 +44,7 @@ export const useQuizStore = defineStore('quiz', () => {
       description: '5 perguntas sobre gramática e ortografia.',
       questions: [
         {
+          id: 1,
           question: 'Qual a palavra correta: "viajem" ou "viagem"?',
           answers: ['Viajem', 'Viagem'],
           correct: 'Viagem',
