@@ -27,8 +27,8 @@ export default defineComponent({
     const router = useRouter();
 
     const navLinks = computed(() => [
-      { text: 'Home', to: '/', show: true },
-      { text: 'About', to: '/about', show: true },
+      { text: 'Home', to: '/', show: !auth.isLoggedIn },
+      { text: 'About', to: '/about', show: !auth.isLoggedIn },
       //{ text: 'Login', to: '/login', show: !auth.isLoggedIn },
       { text: 'Professor', to: '/professor', show: auth.isLoggedIn && auth.userType === 'P' },
       { text: 'Student', to: '/student', show: auth.isLoggedIn && auth.userType === 'S' },

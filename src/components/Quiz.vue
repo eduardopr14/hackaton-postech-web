@@ -103,23 +103,23 @@ const onFinish = () => {
         v-for="(answer, index) in currentQuestion?.answers"
         :key="index"
       >
-        <template #icon>
-          <div
-            @click="sendAnswer(answer.text, currentQuestion)"
-            :class="[
-              'mr-12 rounded p-2 border-2 cursor-pointer transition',
-              isLocked
-                ? quiz.isCorrect || quiz.isCorrect === null
-                  ? 'border-blue-400 hover:bg-blue-100'
-                  : answer.text === currentQuestion?.correct
-                  ? 'border-green-500 bg-green-100'
-                  : 'border-red-500'
-                : 'border-blue-400 hover:bg-blue-100',
-            ]"
-          >
-            <component :is="answer.icon" class="w-6 h-6 text-green-500" />
-          </div>
-        </template>
+      <template #icon>
+        <div
+          @click="sendAnswer(answer.text, currentQuestion)"
+          :class="[
+            'mr-12 rounded p-2 border-2 cursor-pointer transition',
+            isLocked
+              ? answer.text === currentQuestion?.correct
+                ? 'border-green-500 bg-green-100'
+                : quiz.isCorrect === false
+                  ? 'border-red-500 bg-red-100'
+                  : 'border-blue-400 hover:bg-blue-100'
+              : 'border-blue-400 hover:bg-blue-100'
+          ]"
+        >
+          <component :is="answer.icon" class="w-6 h-6 text-green-500" />
+        </div>
+      </template>
         <p class="text-gray-700">{{ answer.text }}</p>
       </QuizItem>
     </div>

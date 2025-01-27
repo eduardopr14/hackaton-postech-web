@@ -13,7 +13,11 @@
           }"
         >
           <h2 class="text-lg font-semibold">{{ quizItem.title }}</h2>
-          <p class="text-sm text-gray-600">{{ quizItem.description }}</p>
+          <p class="text-sm text-gray-600">
+            {{ quizItem.questions.length }} 
+            {{ quizItem.questions.length == 1 ? 'pergunta' : 'perguntas' }} 
+            {{ quizItem.description }}
+          </p>
           <span v-if="historic.isQuizCompleted(quizItem.id)" class="text-xs text-gray-500">
             Concluído - {{ historic.getQuizScore(quizItem.id) }}
           </span>
