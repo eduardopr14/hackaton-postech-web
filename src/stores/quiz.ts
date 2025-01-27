@@ -6,7 +6,7 @@ export const useQuizStore = defineStore('quiz', () => {
     {
       id: 1,
       title: 'Aula de História',
-      description: '10 perguntas sobre eventos históricos importantes.',
+      description: 'Eventos históricos importantes',
       questions: [
         {
           id: 1,
@@ -27,7 +27,7 @@ export const useQuizStore = defineStore('quiz', () => {
     {
       id: 2,
       title: 'Aula de Química',
-      description: '5 perguntas sobre conceitos básicos de química.',
+      description: 'Conceitos básicos de química',
       questions: [
         {
           id: 1,
@@ -41,7 +41,7 @@ export const useQuizStore = defineStore('quiz', () => {
     {
       id: 3,
       title: 'Aula de Português',
-      description: '5 perguntas sobre gramática e ortografia.',
+      description: 'Gramática e ortografia',
       questions: [
         {
           id: 1,

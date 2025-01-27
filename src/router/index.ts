@@ -1,15 +1,17 @@
 // src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
-import AboutView from '@/views/AboutView.vue';
+import About from '@/components/About.vue';
 import LoginView from '@/views/LoginView.vue';
 import QuizView from '@/views/QuizView.vue';
-import ProfessorView from '@/views/ProfessorView.vue';
-import StudentView from '@/views/StudentView.vue';
+import Professor from '@/components/Professor/Professor.vue';
+import Student from '@/components/Student/Student.vue';
+import NotFound from '@/views/NotFound.vue';
 import { useAuthStore } from '@/stores/auth';
 
 const routes = [
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
   { path: '/', name: 'Home', component: LoginView },
-  { path: '/about', name: 'About', component: AboutView },
+  { path: '/about', name: 'About', component: About },
   { path: '/login', name: 'Login', redirect: { name: 'Home' } },
   {
     path: '/quiz',
@@ -24,7 +26,7 @@ const routes = [
   {
     path: '/professor',
     name: 'Professor',
-    component: ProfessorView,
+    component: Professor,
     beforeEnter: (_to: any, _from: any, next: Function) => {
       const auth = useAuthStore();
       if (auth.isLoggedIn && auth.userType === 'P') next();
@@ -34,7 +36,7 @@ const routes = [
   {
     path: '/student',
     name: 'Student',
-    component: StudentView,
+    component: Student,
     beforeEnter: (_to: any, _from: any, next: Function) => {
       const auth = useAuthStore();
       if (auth.isLoggedIn && auth.userType === 'S') next();
