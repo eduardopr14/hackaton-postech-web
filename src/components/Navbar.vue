@@ -27,13 +27,16 @@ export default defineComponent({
     const router = useRouter();
 
     const navLinks = computed(() => [
-      { text: 'Home', to: '/', show: !auth.isLoggedIn },
-      { text: 'About', to: '/about', show: !auth.isLoggedIn },
+      { text: 'Home', to: '/', show: !showed() },
+      { text: 'About', to: '/about', show: !showed() },
       //{ text: 'Login', to: '/login', show: !auth.isLoggedIn },
-      { text: 'Professor', to: '/professor', show: auth.isLoggedIn && auth.userType === 'P' },
-      { text: 'Student', to: '/student', show: auth.isLoggedIn && auth.userType === 'S' },
-      { text: 'Quiz', to: '/quiz', show: auth.isLoggedIn && auth.userType === 'S' },
-      { text: 'Logout', to: '/', show: auth.isLoggedIn, action: 'logout' },
+      { text: 'Professor', to: '/professor', show: showed('P') },
+      { text: 'Cadastrar Professor', to: '/professor/create-professor', show: showed('P') },
+      { text: 'Cadastrar Aluno', to: '/professor/create-student', show: showed('P') },
+      { text: 'Cadastrar Escola', to: '/professor/create-school', show: showed('P') },
+      { text: 'Student', to: '/student', show: showed('S') },
+      { text: 'Quiz', to: '/quiz', show: showed('S') },
+      { text: 'Logout', to: '/', show: showed(), action: 'logout' },
     ]);
 
     const handleDivClick = (link: { to: string; action?: string }) => {
@@ -42,6 +45,13 @@ export default defineComponent({
       }
       router.push(link.to);
     };
+
+    const showed = (userType?: string) => {
+      if (userType) {
+        return auth.isLoggedIn && auth.userType === userType
+      }
+      return auth.isLoggedIn
+    }
 
     return { navLinks, handleDivClick };
   },

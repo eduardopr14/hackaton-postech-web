@@ -2,6 +2,7 @@
 import { RouterView } from 'vue-router'
 import MainMessage from './components/MainMessage.vue'
 import Navbar from './components/Navbar.vue'
+import Notification from './components/Common/Notification.vue';
 </script>
 
 <template>
@@ -16,6 +17,7 @@ import Navbar from './components/Navbar.vue'
           height="165"
         />
 
+        <Notification />
         <div class="wrapper lg:flex lg:items-start lg:flex-wrap">
           <MainMessage main-text="Quiz App" />
           <Navbar />

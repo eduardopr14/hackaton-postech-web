@@ -4,6 +4,6 @@ import DefaultView from '@/views/DefaultView.vue';
 
 <template>
   <DefaultView>
-    Student
+    <router-view></router-view>
   </DefaultView>
 </template>
