@@ -16,7 +16,6 @@ const notificationStore = useNotificationStore();
 const router = useRouter();
 
 const handleSubmit = () => {
-  console.log(username.value, password.value, name.value, schoolId.value, classId.value)
   if (username.value && password.value && name.value && schoolId.value && classId.value) {
     const newStudent = crudStore.createStudent(username.value, password.value, schoolId.value, classId.value, name.value);
     console.log('Aluno criado', newStudent);
