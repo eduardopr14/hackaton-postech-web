@@ -42,6 +42,7 @@ const handleSubmit = () => {
         </div>
         
         <div class="mb-4">
+          <span class="text-gray-500">Número de Salas</span>
           <input
             v-model.number="numberOfClasses"
             id="numberOfClasses"

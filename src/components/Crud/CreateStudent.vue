@@ -27,6 +27,11 @@ const handleSubmit = () => {
 };
 
 const schools = computed(() => crudStore.getSchools());
+
+const filteredClasses = computed(() => {
+  const selectedSchool = crudStore.getSchools().find(school => school.schoolId === schoolId.value);
+  return selectedSchool ? selectedSchool.classIds : [];
+});
 </script>
 
 <template>
@@ -69,19 +74,17 @@ const schools = computed(() => crudStore.getSchools());
           v-model="schoolId"
           :items="schools"
           item-text="name"
+          item-value="schoolId"
           placeholder="Selecione uma escola"
           useSearch
         />
-        <div class="mb-4">
-          <input
-            v-model="classId"
-            id="classId"
-            type="text"
-            placeholder="ID da Classe"
-            required
-            class="mt-1 p-[6px] pl-2 block w-full rounded-md border-gray-300 shadow-sm border focus:border-green-500 focus:outline-none"
-          />
-        </div>
+        <BaseSelect
+          class="mb-4"
+          v-model="classId"
+          :items="filteredClasses"
+          placeholder="Selecione uma classe"
+          useSearch
+        />
         <button
           type="submit"
           class="w-full py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:bg-[#2dac5c]"
