@@ -60,6 +60,11 @@ const routes = [
         name: 'CreateSchool',
         component: () => import('@/components/Crud/CreateSchool.vue'),
       },
+      {
+        path: 'create-quiz',
+        name: 'CreateQuiz',
+        component: () => import('@/components/Crud/CreateQuiz.vue'),
+      },
     ]
   },
   {

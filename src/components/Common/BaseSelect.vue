@@ -29,6 +29,10 @@ const filteredItems = computed(() => {
   return props.items;
 });
 
+const filteredItemsWithText = computed(() => {
+  return filteredItems.value.filter(item => getItemText(item));
+});
+
 const selectedItems = computed(() => {
   if (!props.items.length) return null;
 
@@ -78,7 +82,7 @@ function onSelect(item: any) {
   <div class="relative w-full">
     <button
       type="button"
-      class="w-full px-2 py-[6px] border text-base rounded-md focus:outline-none focus:border-green-500 text-left"
+      class="w-full px-2 py-[6px] border text-base rounded-md focus:outline-none focus:border-green-500 text-left truncate"
       :class="{ 'border-gray-300': !props.error, 'border-red-600': props.error, 'cursor-not-allowed': props.disabled }"
       @click="toggleMenu"
       :disabled="props.disabled"
@@ -104,7 +108,7 @@ function onSelect(item: any) {
 
       <ul class="max-h-48 overflow-auto">
         <li
-          v-for="item in filteredItems"
+          v-for="item in filteredItemsWithText"
           :key="getItemValue(item)"
           @click="onSelect(item)"
           class="p-2 hover:bg-green-100 active:bg-green-200 cursor-pointer"
@@ -118,6 +122,8 @@ function onSelect(item: any) {
           <span>{{ getItemText(item) }}</span>
         </li>
       </ul>
+
+      <div v-if="!filteredItemsWithText.length" class="p-2">Nenhum item encontrado.</div>
     </div>
 
     <div v-if="props.error && props.errorText" class="text-red-600 text-xs mt-1">

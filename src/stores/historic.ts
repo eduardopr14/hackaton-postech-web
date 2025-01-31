@@ -52,6 +52,11 @@ export const useHistoricStore = defineStore('historic', () => {
     return quizResult ? `${quizResult.correctAnswers} acerto(s) de ${quizResult.totalQuestions}` : '0 de 0';
   };
 
+  const getQuizPercent = (quizId: number) => {
+    const quizResult = completedQuizzes.value.find((quiz) => quiz.quizId === quizId && quiz.isCompleted);
+    return `${quizResult.correctAnswers / quizResult.totalQuestions * 100}%`;
+  };
+
   const getInfo = (quizId: number) => {
     return infoCompletedQuizzes.value.find((quiz) => quiz.quizId === quizId);
   };
@@ -63,6 +68,7 @@ export const useHistoricStore = defineStore('historic', () => {
     getCompletedQuizzes,
     isQuizCompleted,
     getQuizScore,
+    getQuizPercent,
     getInfo,
   };
 });

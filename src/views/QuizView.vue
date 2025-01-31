@@ -4,7 +4,7 @@
       <h1 class="text-2xl font-bold mb-6">Escolha um Quiz</h1>
       <ul class="space-y-4">
         <li
-          v-for="quizItem in quiz.quizzes"
+          v-for="quizItem in quiz.localQuizzes"
           :key="quizItem.id"
           class="p-4 border rounded shadow cursor-pointer hover:bg-gray-100 transition relative"
           @click="!historic.isQuizCompleted(quizItem.id) && quiz.selectQuiz(quizItem.id)"
@@ -20,7 +20,7 @@
             {{ quizItem.questions.length == 1 ? 'pergunta' : 'perguntas' }}.
           </p>
           <span v-if="historic.isQuizCompleted(quizItem.id)" class="text-xs text-gray-500">
-            Concluído - {{ historic.getQuizScore(quizItem.id) }}
+            Concluído - {{ historic.getQuizScore(quizItem.id) }} ({{ historic.getQuizPercent(quizItem.id) }}).
           </span>
 
           <button

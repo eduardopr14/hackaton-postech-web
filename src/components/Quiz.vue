@@ -103,7 +103,7 @@ const onFinish = () => {
         v-for="(answer, index) in currentQuestion?.answers"
         :key="index"
       >
-      <template #icon>
+      <template #icon v-if="answer.text">
         <div
           @click="sendAnswer(answer.text, currentQuestion)"
           :class="[
