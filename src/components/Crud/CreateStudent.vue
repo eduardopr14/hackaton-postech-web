@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { useCrudStore } from '@/stores/crud';
 import { useNotificationStore } from '@/stores/notification';
 import { useRouter } from 'vue-router';
-import BaseSelect from '@/components/Common/BaseSelect.vue'
+import BaseSelect from '@/components/Common/BaseSelect.vue';
 
 const username = ref('');
 const password = ref('');

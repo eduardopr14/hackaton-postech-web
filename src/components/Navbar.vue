@@ -34,6 +34,7 @@ export default defineComponent({
       { text: 'Cadastrar Professor', to: '/professor/create-professor', show: showed('P') },
       { text: 'Cadastrar Aluno', to: '/professor/create-student', show: showed('P') },
       { text: 'Cadastrar Escola', to: '/professor/create-school', show: showed('P') },
+      { text: 'Cadastrar Quiz', to: '/professor/create-quiz', show: showed('P') },
       { text: 'Student', to: '/student', show: showed('S') },
       { text: 'Quiz', to: '/quiz', show: showed('S') },
       { text: 'Logout', to: '/', show: showed(), action: 'logout' },

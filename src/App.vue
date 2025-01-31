@@ -7,7 +7,7 @@ import Notification from './components/Common/Notification.vue';
 
 <template>
   <div class="bg-[#F8F8F8]">
-    <div id="app" class="max-w-screen-xl mx-auto p-8 font-normal grid lg:grid-cols-2 lg:gap-8">
+    <div id="app" class="max-w-[1400px] mx-auto py-8 font-normal grid lg:grid-cols-2 lg:gap-8">
       <header class="max-h-screen leading-6 lg:flex lg:items-center lg:pr-[var(--section-gap)/2]">
         <img
           alt="Vue logo"
