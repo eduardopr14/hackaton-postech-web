@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { UserType } from '@/types/types';
+import { UserType, UserInfo } from '@/types/types';
 import { users, students, professors, schools } from '@/data/mockData';
 import { generateRandomString } from '@/functions/functions.ts';
 
@@ -10,6 +10,21 @@ export const useCrudStore = defineStore('crud', () => {
   const localStudents = students;
   const localProfessors = professors;
   const localSchools = schools;
+
+  const getUserLogged = () => {
+    return localStorage.getItem('currentUserId');
+  }
+
+  const getUserInfo = (userId: string | null) => {
+    return localStudents.find(user => user.userId == userId);
+  }
+
+  const getLocalStudentById = (userId: string | null): UserInfo | null => {
+    const student = localStudents.find(student => student.userId === userId);
+    if (!student) return null;
+
+    return { userId: student.userId, schoolId: student.schoolId, classId: student.classId };
+  }
 
   const createProfessor = (username: string, password: string, schoolIds: string[], name: string) => {
     const newUser = {
@@ -117,5 +132,16 @@ export const useCrudStore = defineStore('crud', () => {
     return localSchools.filter(school => !school.isDeleted);
   };
 
-  return { createProfessor, createStudent, deleteUser, addSchoolsToProfessor, addSchool, deleteSchool, getSchools };
+  return {
+    getUserLogged,
+    getUserInfo,
+    getLocalStudentById,
+    createProfessor,
+    createStudent,
+    deleteUser,
+    addSchoolsToProfessor,
+    addSchool,
+    deleteSchool,
+    getSchools
+  };
 });

@@ -22,14 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 /* Setup */
 const router = useRouter()
-
-/* Data */
-const modal = ref(true)
 
 /* Methods */
 const back = () => {

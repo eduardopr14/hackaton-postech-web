@@ -3,8 +3,8 @@ import { UserType } from '@/types/types';
 export const users = [
   { id: '1', username: 'professor', password: '1234', role: 'P' as UserType, isDeleted: false },
   { id: '2', username: 'aluno', password: '1234', role: 'S' as UserType, isDeleted: false },
-  { id: '3', username: 'aluno', password: '1234', role: 'S' as UserType, isDeleted: false },
-  { id: '4', username: 'aluno', password: '1234', role: 'S' as UserType, isDeleted: false },
+  { id: '3', username: 'aluno2', password: '1234', role: 'S' as UserType, isDeleted: false },
+  { id: '4', username: 'aluno3', password: '1234', role: 'S' as UserType, isDeleted: false },
 ];
 
 export const students = [

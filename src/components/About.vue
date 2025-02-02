@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DefaultView from '@/views/DefaultView.vue'
-import QuizItem from './QuizItem.vue'
+import QuizItem from './Quiz/QuizItem.vue'
 import Number1 from './icons/Number1.vue'
 import Number2 from './icons/Number2.vue'
 import Number3 from './icons/Number3.vue'
