@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useQuizStore } from '@/stores/quiz';
+import { useCrudStore } from '@/stores/crud';
 import { useHistoricStore } from '@/stores/historic';
-import QuizItem from './QuizItem.vue';
-import IconA from './icons/IconA.vue';
-import IconB from './icons/IconB.vue';
-import IconC from './icons/IconC.vue';
-import IconD from './icons/IconD.vue';
-import IconE from './icons/IconE.vue';
+import QuizItem from '@/components/Quiz/QuizItem.vue';
+import IconA from './../icons/IconA.vue';
+import IconB from './../icons/IconB.vue';
+import IconC from './../icons/IconC.vue';
+import IconD from './../icons/IconD.vue';
+import IconE from './../icons/IconE.vue';
 
 const icons = [IconA, IconB, IconC, IconD, IconE];
 const quiz = useQuizStore();
 const historic = useHistoricStore();
+const crudStore = useCrudStore();
+
+const userId = computed(() => crudStore.getUserLogged());
 
 const currentQuestion = computed(() => {
   if (!quiz.currentQuestion()) return null;
@@ -50,6 +54,7 @@ const saveHistoric = (answerText: string, currentQuestion: any) => {
   const givenAnswerLetter = currentQuestion.answers.find((answer: { text: any; }) => answer.text === answerText).letter;
   const isItRight = answerText == currentQuestion.correct;
   historic.addInfoCompletedQuiz(
+  userId.value,
   quiz.currentQuiz()?.id || 0, 
     [
       {
@@ -80,6 +85,7 @@ const correctLetter = computed(() => {
 
 const saveToHistory = () => {
   historic.addCompletedQuiz(
+    userId.value,
     quiz.currentQuiz()?.id || 0,
     quiz.correctAnswers,
     quiz.totalQuestions

@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { quizzes } from '@/data/mockDataQuiz';
+import { QuizItem } from '@/types/types';
 
 export const useQuizStore = defineStore('quiz', () => {
-  const localQuizzes = quizzes;
+  const localQuizzes: QuizItem[] = quizzes;
 
   const selectedQuizIndex = ref<number | null>(null);
   const currentQuestionIndex = ref(0);

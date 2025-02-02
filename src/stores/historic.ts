@@ -1,12 +1,17 @@
-import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { defineStore } from 'pinia';
+import { Answer, InfoRecord, QuizRecord } from '@/types/types';
+import { useCrudStore } from '@/stores/crud';
 
 export const useHistoricStore = defineStore('historic', () => {
-  const completedQuizzes = ref<any[]>([]);
-  const infoCompletedQuizzes = ref<any[]>([]);
+  const crudStore = useCrudStore();
+  const completedQuizzes = ref<QuizRecord[]>([]);
+  const infoCompletedQuizzes = ref<InfoRecord[]>([]);
 
-  const addCompletedQuiz = (quizId: number, correctAnswers: number, totalQuestions: number) => {
-    const quizRecord = {
+  const addCompletedQuiz = (userId: string | null, quizId: number, correctAnswers: number, totalQuestions: number) => {
+    const result = crudStore.getLocalStudentById(userId);
+    const quizRecord: QuizRecord = {
+      user: result,
       quizId,
       correctAnswers,
       totalQuestions,
@@ -16,22 +21,25 @@ export const useHistoricStore = defineStore('historic', () => {
   };
 
   const addInfoCompletedQuiz = (
+    userId: string | null,
     quizId: number,
     info: {
       questionId: number;
       questionAnswered: string;
-      answers: { text: string; letter: string }[];
+      answers: Answer[];
       givenAnswer: string;
       correctAnswer: string;
       isItRight: boolean;
     }[]
   ) => {
-    const existingQuiz = getInfo(quizId);
+    const existingQuiz = getInfo(userId, quizId);
 
     if (existingQuiz) {
       existingQuiz.info.push(...info);
     } else {
-      const quizRecord = {
+      const result = crudStore.getLocalStudentById(userId);
+      const quizRecord: InfoRecord = {
+        user: result,
         quizId,
         info
       };
@@ -39,32 +47,37 @@ export const useHistoricStore = defineStore('historic', () => {
     }
   };
 
-  const getCompletedQuizzes = () => {
-    return completedQuizzes.value;
+  const getCompletedQuizzesList = (userId: string | null) => {
+    return completedQuizzes.value.filter((quiz) => quiz.user?.userId === userId && quiz.isCompleted);
   };
 
-  const isQuizCompleted = (quizId: number) => {
-    return completedQuizzes.value.some((quiz) => quiz.quizId === quizId && quiz.isCompleted);
+  const getCompletedQuizzes = (userId: string | null) => {
+    return completedQuizzes.value.filter(quiz => quiz.user?.userId === userId);
   };
 
-  const getQuizScore = (quizId: number) => {
-    const quizResult = completedQuizzes.value.find((quiz) => quiz.quizId === quizId && quiz.isCompleted);
-    return quizResult ? `${quizResult.correctAnswers} acerto(s) de ${quizResult.totalQuestions}` : '0 de 0';
+  const isQuizCompleted = (userId: string | null, quizId: number) => {
+    return completedQuizzes.value.some((quiz) => quiz.user?.userId === userId && quiz.quizId === quizId && quiz.isCompleted);
   };
 
-  const getQuizPercent = (quizId: number) => {
-    const quizResult = completedQuizzes.value.find((quiz) => quiz.quizId === quizId && quiz.isCompleted);
-    return `${quizResult.correctAnswers / quizResult.totalQuestions * 100}%`;
+  const getQuizScore = (userId: string | null, quizId: number) => {
+    const quizResult = completedQuizzes.value.find((quiz) => quiz.user?.userId === userId && quiz.quizId === quizId && quiz.isCompleted);
+    return quizResult && `${quizResult.correctAnswers} acerto(s) de ${quizResult.totalQuestions}`;
   };
 
-  const getInfo = (quizId: number) => {
-    return infoCompletedQuizzes.value.find((quiz) => quiz.quizId === quizId);
+  const getQuizPercent = (userId: string | null, quizId: number) => {
+    const quizResult = completedQuizzes.value.find((quiz) => quiz.user?.userId === userId && quiz.quizId === quizId && quiz.isCompleted);
+    return quizResult && `${quizResult.correctAnswers / quizResult.totalQuestions * 100}%`;
+  };
+
+  const getInfo = (userId: string | null, quizId: number) => {
+    return infoCompletedQuizzes.value.find((quiz) => quiz.user?.userId === userId && quiz.quizId === quizId);
   };
 
   return {
     completedQuizzes,
     addCompletedQuiz,
     addInfoCompletedQuiz,
+    getCompletedQuizzesList,
     getCompletedQuizzes,
     isQuizCompleted,
     getQuizScore,
