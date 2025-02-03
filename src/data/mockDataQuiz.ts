@@ -19,6 +19,8 @@ export const quizzes = [
         explanation: 'A Primeira Guerra Mundial começou em 1914 e terminou em 1918.',
       },
     ],
+    isCompleted: false,
+    isDeleted: false,
   },
   {
     id: 2,
@@ -33,6 +35,8 @@ export const quizzes = [
         explanation: 'A água é representada pela fórmula H2O.',
       },
     ],
+    isCompleted: false,
+    isDeleted: false,
   },
   {
     id: 3,
@@ -47,5 +51,7 @@ export const quizzes = [
         explanation: 'Viagem é o substantivo; viajem é a forma verbal.',
       },
     ],
+    isCompleted: false,
+    isDeleted: false,
   },
 ];

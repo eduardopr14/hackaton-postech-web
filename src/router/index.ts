@@ -36,7 +36,7 @@ const routes = [
   {
     path: '/quiz',
     name: 'Quiz',
-    component: () => import('@/views/QuizView.vue'),
+    component: () => import('@/components/Quiz/QuizList.vue'),
     beforeEnter: checkAuth('S'),
   },
   {
