@@ -1,3 +1,64 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+import { useHistoricStore } from '@/stores/historic';
+import { useCrudStore } from '@/stores/crud';
+import IconA from '@/components/icons/IconA.vue';
+import IconB from '@/components/icons/IconB.vue';
+import IconC from '@/components/icons/IconC.vue';
+import IconD from '@/components/icons/IconD.vue';
+import IconE from '@/components/icons/IconE.vue';
+
+const props = defineProps({
+  quizId: {
+    type: Number,
+    required: true,
+  }
+});
+
+const emit = defineEmits(["close"]);
+
+const currentPage = ref(1);
+const itemsPerPage = 1;
+const historic = useHistoricStore();
+const crudStore = useCrudStore();
+
+const userId = computed(() => crudStore.getUserLogged());
+const quizInfo = computed(() => historic.getInfoById(userId.value, props.quizId));
+const totalPages = computed(() => {
+  return quizInfo.value && Math.ceil(quizInfo.value.info.length / itemsPerPage);
+});
+
+const paginatedInfo = computed(() => {
+  const startIndex = (currentPage.value - 1) * itemsPerPage;
+  return quizInfo.value && quizInfo.value.info.slice(startIndex, startIndex + itemsPerPage);
+});
+
+const changePage = (direction: number) => {
+  currentPage.value = Math.min(Math.max(1, currentPage.value + direction), Number(totalPages.value));
+};
+
+const closeModal = () => {
+  emit('close');
+};
+
+const getSvgComponent = (letter: string) => {
+  switch (letter) {
+    case 'A':
+      return IconA;
+    case 'B':
+      return IconB;
+    case 'C':
+      return IconC;
+    case 'D':
+      return IconD;
+    case 'E':
+      return IconE;
+    default:
+      return null;
+  }
+};
+</script>
+
 <template>
   <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
     <div class="bg-white rounded-lg p-6 max-w-lg w-full shadow-lg">
@@ -8,7 +69,7 @@
         </button>
       </div>
 
-      <div v-if="quizInfo.info.length > 0">
+      <div v-if="quizInfo && quizInfo.info.length > 0">
         <div v-for="(item, index) in paginatedInfo" :key="index">
           <p><strong>{{ item.questionAnswered }}</strong></p>
           <ul class="space-y-2 my-4">
@@ -60,64 +121,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useHistoricStore } from '@/stores/historic';
-import { useCrudStore } from '@/stores/crud';
-import IconA from '@/components/icons/IconA.vue';
-import IconB from '@/components/icons/IconB.vue';
-import IconC from '@/components/icons/IconC.vue';
-import IconD from '@/components/icons/IconD.vue';
-import IconE from '@/components/icons/IconE.vue';
-
-const props = defineProps({
-  quizId: {
-    type: Number,
-    required: true,
-  }
-});
-
-const emit = defineEmits(["close"]);
-
-const currentPage = ref(1);
-const itemsPerPage = 1;
-const historic = useHistoricStore();
-const crudStore = useCrudStore();
-
-const userId = computed(() => crudStore.getUserLogged());
-const quizInfo = computed(() => historic.getInfo(userId.value, props.quizId));
-const totalPages = computed(() => {
-  return quizInfo.value && Math.ceil(quizInfo.value.info.length / itemsPerPage);
-});
-
-const paginatedInfo = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  return quizInfo.value && quizInfo.value.info.slice(startIndex, startIndex + itemsPerPage);
-});
-
-const changePage = (direction: number) => {
-  currentPage.value = Math.min(Math.max(1, currentPage.value + direction), Number(totalPages.value));
-};
-
-const closeModal = () => {
-  emit('close');
-};
-
-const getSvgComponent = (letter: string) => {
-  switch (letter) {
-    case 'A':
-      return IconA;
-    case 'B':
-      return IconB;
-    case 'C':
-      return IconC;
-    case 'D':
-      return IconD;
-    case 'E':
-      return IconE;
-    default:
-      return null;
-  }
-};
-</script>

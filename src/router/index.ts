@@ -65,6 +65,11 @@ const routes = [
         name: 'CreateQuiz',
         component: () => import('@/components/Crud/CreateQuiz.vue'),
       },
+      {
+        path: 'quiz-historic',
+        name: 'QuizHistoric',
+        component: () => import('@/components/Quiz/QuizHistoricList.vue'),
+      },
     ]
   },
   {
