@@ -208,7 +208,7 @@ const getSvgComponent = (letter: string) => {
       </div>
 
       <div v-if="quizCompletedStats.totalCompleted > 0">
-        <h2 class="text-xl font-semibold mb-2">Estatísticas do Quiz</h2>
+        <h2 class="text-xl font-semibold mb-2">Geral</h2>
         <p class="text-gray-700">Alunos que completaram: {{ quizCompletedStats.totalCompleted }}</p>
         <p class="text-gray-700">Total de Questões Respondidas: {{ quizCompletedStats.totalQuestions }}</p>
         <p class="text-gray-700">Total de Acertos: {{ quizCompletedStats.correctAnswers }}</p>
