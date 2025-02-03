@@ -16,24 +16,32 @@ const isModalOpen = ref(false);
 const selectedQuizId = ref<number | null>(null);
 const selectedFilter = ref('all');
 
-const userId = computed(() => crudStore.getUserLogged());
+const userId = computed(() => {
+  return crudStore.getUserLogged()
+});
 
-const getCompletedQuizzesList = (userId: string | null) => {
-  return historic.getCompletedQuizzesList(userId);
+const allQuizzes = computed(() => {
+  return quiz.localQuizzes;
+});
+
+const quizListFilter = [
+  { filter: 'all', text: 'Todos', quizzes: allQuizzes },
+  { filter: 'completed', text: 'Finalizados', quizzes: computed(() => filterQuizzesByCompletion(true)) },
+  { filter: 'not-completed', text: 'Não Finalizados', quizzes: computed(() => filterQuizzesByCompletion(false)) }
+];
+
+const getCompletedQuizzesListById = (userId: string | null) => {
+  return historic.getCompletedQuizzesListById(userId);
 };
 
 const filterQuizzesByCompletion = (completed: boolean): QuizItem[] => {
-  const completedQuizzesList = getCompletedQuizzesList(userId.value);
+  const completedQuizzesList = getCompletedQuizzesListById(userId.value);
   return quiz.localQuizzes.filter(localQuiz => 
     completed 
       ? completedQuizzesList.some(completedQuiz => completedQuiz.quizId === localQuiz.id)
       : !completedQuizzesList.some(completedQuiz => completedQuiz.quizId === localQuiz.id)
   );
 };
-
-const allQuizzes = computed(() => {
-  return quiz.localQuizzes;
-});
 
 const openModal = (quizId: number) => {
   selectedQuizId.value = quizId;
@@ -43,12 +51,6 @@ const openModal = (quizId: number) => {
 const closeModal = () => {
   isModalOpen.value = false;
 };
-
-const quizListFilter = [
-  { filter: 'all', text: 'Todos', quizzes: allQuizzes },
-  { filter: 'completed', text: 'Finalizados', quizzes: computed(() => filterQuizzesByCompletion(true)) },
-  { filter: 'not-completed', text: 'Não Finalizados', quizzes: computed(() => filterQuizzesByCompletion(false)) }
-];
 </script>
 
 <template>
@@ -67,23 +69,23 @@ const quizListFilter = [
         />
       </div>
 
-        <QuizList 
-          v-for="quizList in quizListFilter" 
-          :key="quizList.filter"
-          :quizzes="quizList.quizzes.value"
-          :selected-filter="selectedFilter"
-          :filter="quizList.filter"
-          @open="openModal"
-        />
+      <QuizList 
+        v-for="quizList in quizListFilter" 
+        :key="quizList.filter"
+        :quizzes="quizList.quizzes.value"
+        :selected-filter="selectedFilter"
+        :filter="quizList.filter"
+        @open="openModal"
+      />
 
       <InfoModal
-        v-if="isModalOpen"
+        v-if="isModalOpen && selectedQuizId"
         :quizId="selectedQuizId"
         @close="closeModal"
       />
     </div>
-    
-    <div v-if="quiz.selectedQuizIndex">
+
+    <div v-else>
       <Quiz />
     </div>
   </div>

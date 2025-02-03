@@ -16,8 +16,11 @@ export const useCrudStore = defineStore('crud', () => {
   }
 
   const getUserInfo = (userId: string | null) => {
-    return localStudents.find(user => user.userId == userId);
-  }
+    if (!userId) return null;
+
+    const user: any = [...localStudents, ...localProfessors].find(user => user.userId === userId);
+    return user || null;
+  };
 
   const getLocalStudentById = (userId: string | null): UserInfo | null => {
     const student = localStudents.find(student => student.userId === userId);
