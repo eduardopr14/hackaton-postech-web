@@ -48,4 +48,6 @@ export type QuizItem = {
     correct: string;
     explanation: string;
   }[];
+  isCompleted: boolean;
+  isDeleted: boolean;
 };

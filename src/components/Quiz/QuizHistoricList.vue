@@ -1,23 +1,41 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useQuizStore } from '@/stores/quiz';
-import QuizList from '@/components/Quiz/QuizList.vue';
+import QuizListItem from '@/components/Quiz/QuizListItem.vue';
 import QuizFilterButton from '@/components/Quiz/QuizFilterButton.vue';
 import QuizHistoricDetails from '@/components/Quiz/QuizHistoricDetails.vue';
+import { QuizItem } from '@/types/types';
 
 const quizStore = useQuizStore();
 
 const quizId = ref(0);
-const selectedFilter = ref('all');
+const selectedFilter = ref('not-completed');
 const isModalOpen = ref(false);
 
-const allQuizzes = computed(() => quizStore.localQuizzes);
+const allQuizzes = computed(() => {
+  return quizStore.localQuizzes.filter(item => !item.isDeleted);
+});
 
-const quizListFilter = [
-  { filter: 'all', text: 'Todos', quizzes: allQuizzes },
-  { filter: 'completed', text: 'Finalizados', quizzes: allQuizzes },
-  { filter: 'not-completed', text: 'Não Finalizados', quizzes: allQuizzes }
-];
+const allDeletedQuizzes = computed(() => {
+  return quizStore.localQuizzes.filter(item => item.isDeleted);
+});
+
+const filterQuizzesByCompletion = (completed: boolean): QuizItem[] => {
+  return allQuizzes.value.filter(quiz => 
+    completed 
+      ? quiz.isCompleted
+      : !quiz.isCompleted
+  );
+};
+
+const quizListFilter = computed(() =>{
+  return [
+    { filter: 'all', text: 'Todos', quizzes: allQuizzes },
+    { filter: 'completed', text: 'Finalizados', quizzes: filterQuizzesByCompletion(true) },
+    { filter: 'not-completed', text: 'Não Finalizados', quizzes: filterQuizzesByCompletion(false) },
+    { filter: 'deleted', text: 'Deletados', quizzes: allDeletedQuizzes }
+  ];
+});
 
 const openHistoric = (id: number) => {
   quizId.value = id;
@@ -46,13 +64,14 @@ const closeModal = () => {
         />
       </div>
 
-      <QuizList 
+      <QuizListItem 
         v-for="quizList in quizListFilter" 
         :key="quizList.filter"
-        :quizzes="quizList.quizzes.value"
+        :quizzes="quizList.quizzes instanceof Array ? quizList.quizzes : quizList.quizzes.value"
         :selected-filter="selectedFilter"
         :filter="quizList.filter"
-        :isProfessorHistoric="true"
+        :is-professor-historic="true"
+        :is-complete-visible="quizList.filter != 'completed'"
         @historic="openHistoric"
       />
     </div>

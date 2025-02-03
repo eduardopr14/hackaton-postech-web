@@ -1,94 +1,92 @@
-<template>
-  <div v-if="selectedFilter === filter">
-    <ul class="space-y-4">
-      <li
-        v-for="quizItem in quizzes"
-        :key="quizItem.id"
-        class="p-4 border rounded shadow cursor-pointer hover:bg-gray-100 transition relative"
-        @click="onClick(quizItem.id)"
-        :class="{
-          'cursor-not-allowed border-blue-400': historic.isQuizCompletedById(userId, quizItem.id),
-        }"
-      >
-        <h2 class="text-lg font-semibold">{{ quizItem.title }}</h2>
-        <p class="text-sm text-gray-600">
-          {{ quizItem.description }} 
-          -
-          {{ quizItem.questions.length }} 
-          {{ quizItem.questions.length == 1 ? 'pergunta' : 'perguntas' }}.
-        </p>
-        <span v-if="historic.isQuizCompletedById(userId, quizItem.id)" class="text-xs text-gray-500">
-          Concluído - {{ historic.getQuizScore(userId, quizItem.id) }} ({{ historic.getQuizPercent(userId, quizItem.id) }}).
-        </span>
-
-        <button
-          v-if="historic.isQuizCompletedById(userId, quizItem.id)"
-          @click="openModal(quizItem.id)"
-          class="absolute top-1/2 right-[-33px] transform -translate-y-1/2 p-1 bg-green-600 text-white rounded-r-md"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-        </button>
-      </li>
-      <div 
-        v-if="!quizzes.length" 
-        class="p-4 border rounded shadow cursor-pointer hover:bg-gray-100 transition relativ text-center"
-      >
-        Sem resultados
-      </div>
-    </ul>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { ref, computed } from 'vue';
 import { useQuizStore } from '@/stores/quiz';
 import { useHistoricStore } from '@/stores/historic';
 import { useCrudStore } from '@/stores/crud';
 import { QuizItem } from '@/types/types';
-
-const emit = defineEmits<{
-  (event: 'open', value: number): void,
-  (event: 'historic', value: number): void
-}>();
+import Quiz from '@/components/Quiz/Quiz.vue';
+import InfoModal from '@/components/InfoModal.vue';
+import QuizListItem from '@/components/Quiz/QuizListItem.vue';
+import QuizFilterButton from '@/components/Quiz/QuizFilterButton.vue';
 
 const quiz = useQuizStore();
 const historic = useHistoricStore();
 const crudStore = useCrudStore();
+const isModalOpen = ref(false);
+const selectedQuizId = ref<number | null>(null);
+const selectedFilter = ref('all');
 
-const userId = computed(() => crudStore.getUserLogged());
+const userId = computed(() => {
+  return crudStore.getUserLogged()
+});
 
-const openModal = (quizId: number) => {
-  emit("open", quizId)
+const allQuizzes = computed(() => {
+  return quiz.localQuizzes.filter(item => !item.isDeleted);
+});
+
+const quizListFilter = [
+  { filter: 'all', text: 'Todos', quizzes: allQuizzes },
+  { filter: 'completed', text: 'Completos', quizzes: computed(() => filterQuizzesByCompletion(true)) },
+  { filter: 'not-completed', text: 'Não Completos', quizzes: computed(() => filterQuizzesByCompletion(false)) }
+];
+
+const getCompletedQuizzesListById = (userId: string | null) => {
+  return historic.getCompletedQuizzesListById(userId);
 };
 
-const onClick = (id: number) => {
-  if (!historic.isQuizCompletedById(userId.value, id)) {
-    if (!props.isProfessorHistoric) {
-      quiz.selectQuiz(id)
-    } else {
-      emit("historic", id)
-    }
-  } 
-}
+const filterQuizzesByCompletion = (completed: boolean): QuizItem[] => {
+  const completedQuizzesList = getCompletedQuizzesListById(userId.value);
+  return allQuizzes.value.filter(localQuiz => 
+    completed 
+      ? completedQuizzesList.some(completedQuiz => completedQuiz.quizId === localQuiz.id)
+      : !completedQuizzesList.some(completedQuiz => completedQuiz.quizId === localQuiz.id)
+  );
+};
 
-const props = defineProps({
-  isProfessorHistoric: {
-    type: Boolean,
-    default: false,
-  },
-  quizzes: {
-    type: Array<QuizItem>,
-    required: true
-  },
-  selectedFilter: {
-    type: String,
-    required: true
-  },
-  filter: {
-    type: String,
-    required: true
-  }
-});
+const openModal = (quizId: number) => {
+  selectedQuizId.value = quizId;
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
 </script>
+
+<template>
+  <div>
+    <div v-if="!quiz.selectedQuizIndex">
+      <h1 class="text-2xl font-bold mb-6">Lista de Quizzes</h1>
+
+      <div class="mb-6 flex justify-center space-x-4">
+        <QuizFilterButton 
+          v-for="filter in quizListFilter"
+          :key="filter.filter"
+          :selected-filter="selectedFilter"
+          :filter="filter.filter"
+          :text="filter.text"
+          @click="selectedFilter = filter.filter"
+        />
+      </div>
+
+      <QuizListItem 
+        v-for="quizList in quizListFilter" 
+        :key="quizList.filter"
+        :quizzes="quizList.quizzes.value"
+        :selected-filter="selectedFilter"
+        :filter="quizList.filter"
+        @open="openModal"
+      />
+
+      <InfoModal
+        v-if="isModalOpen && selectedQuizId"
+        :quizId="selectedQuizId"
+        @close="closeModal"
+      />
+    </div>
+
+    <div v-else>
+      <Quiz />
+    </div>
+  </div>
+</template>

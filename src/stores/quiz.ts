@@ -53,6 +53,34 @@ export const useQuizStore = defineStore('quiz', () => {
     }
   };
 
+  const completeQuiz = (id: number) => {
+    const quiz = localQuizzes.find(quiz => quiz.id === id);
+
+    if (quiz) {
+      quiz.isCompleted = true;
+    } else {
+      console.error(`Quiz with id ${id} not found.`);
+    }
+  };
+
+  const isQuizCompletedById = (quizId: number) => {
+    return localQuizzes.some((quiz) => quiz.id === quizId && quiz.isCompleted);
+  };
+
+  const deleteQuiz = (id: number) => {
+    const quiz = localQuizzes.find(quiz => quiz.id === id);
+
+    if (quiz) {
+      quiz.isDeleted = true;
+    } else {
+      console.error(`Quiz with id ${id} not found.`);
+    }
+  };
+
+  const isQuizDeleteById = (quizId: number) => {
+    return localQuizzes.some((quiz) => quiz.id === quizId && quiz.isDeleted);
+  };
+
   return {
     localQuizzes,
     selectedQuizIndex,
@@ -66,5 +94,9 @@ export const useQuizStore = defineStore('quiz', () => {
     isQuizCompleted,
     totalQuestions,
     correctAnswers,
+    completeQuiz,
+    isQuizCompletedById,
+    deleteQuiz,
+    isQuizDeleteById,
   };
 });
