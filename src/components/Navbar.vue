@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const auth = useAuthStore();
 const router = useRouter();
+const route = useRoute();
 
 const navLinks = computed(() => [
   { text: 'Home', to: '/', show: !showed() },
@@ -34,21 +35,27 @@ const showed = (userType?: string) => {
   }
   return auth.isLoggedIn;
 };
+
+const isActiveLink = (to: string) => {
+  return route.path === to;
+};
 </script>
 
 <template>
-  <nav class="w-full text-center mt-8 text-xs lg:text-left lg:mt-4 lg:ml-[-1rem] lg:text-base lg:py-4">
+  <nav class="w-full text-center mt-8 lg:text-left lg:mt-4 lg:py-4">
     <div
       v-for="(link, index) in navLinks"
       :key="index"
-      class="inline-block border-l border-black first-of-type:border-0"
       @click="handleDivClick(link)"
     >
       <div 
         v-if="link.show"
-        class="px-4 text-green-700 transition duration-400 hover:bg-green-100 cursor-pointer" 
+        :class="[
+          'px-4 py-2 my-1 text-green-700 transition duration-300 ease-in-out hover:bg-green-100 hover:text-green-900 cursor-pointer rounded-lg',
+          isActiveLink(link.to) ? 'bg-green-200 font-semibold' : ''
+        ]"
       >
-        <span>{{ link.text }}</span>
+        <span class="text-sm lg:text-base">{{ link.text }}</span>
       </div>
     </div>
   </nav>

@@ -85,7 +85,7 @@ const getSvgComponent = (letter: string) => {
                   'p-[3px]': true, 
                   'transition': true
                 }"
-                class="w-6 h-6"
+                class="w-6 h-6 min-w-6 min-h-6"
                 v-if="answer.text"
               />
               <span class="text-sm">{{ answer.text }}</span>

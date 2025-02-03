@@ -53,7 +53,7 @@ const closeModal = () => {
     <div>
       <h1 class="text-2xl font-bold mb-6">Lista de Quizzes</h1>
 
-      <div class="mb-6 flex justify-center space-x-4">
+      <div class="mb-6 space-x-4">
         <QuizFilterButton 
           v-for="filter in quizListFilter"
           :key="filter.filter"
