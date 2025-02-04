@@ -147,7 +147,7 @@ Todas as funcionalidades necessitam de autorização (token) para seu acesso, se
   
   Na visualização de quizzes existem 4 filtros, sendo eles: “Todos”, “Finalizados”, “Não Finalizados” e “Deletados”. Em cada um deles existe uma possível listagem de quizzes, com o título e descrição do quiz, assim como um botão para finalizar um quiz e um botão para deletar.
 
-Caso um quiz seja finalizado, os alunos não terão mais como enviar resoluções ao mesmo (e o mesmo ficará com uma borda verde aos alunos e professores), dessa forma significando que o quiz foi concluído pelo professor. Caso um quiz seja deletado, o mesmo não aparecerá mais para os alunos, apenas os professores terão visibilidade do mesmo e ele ficará com uma borda vermelha.
+  Caso um quiz seja finalizado, os alunos não terão mais como enviar resoluções ao mesmo (e o mesmo ficará com uma borda verde aos alunos e professores), dessa forma significando que o quiz foi concluído pelo professor. Caso um quiz seja deletado, o mesmo não aparecerá mais para os alunos, apenas os professores terão visibilidade do mesmo e ele ficará com uma borda vermelha.
 
 ### Funcionalidades de Usuários do Tipo Aluno:
 
