@@ -175,12 +175,15 @@ O diagrama de classe apresenta a estrutura e relacionamentos do projeto.
 ## Relatos de Experiências e Desafios
 
 A criação de um quiz e toda a sua estrutura e relacionamentos foi mais difícil do que se previamente pensava, desta forma foi necessário criar esses relacionamentos para que as filtragens, cadastros e visualizações fossem possíveis, assim como os diversos tipos de relatórios sobre os quizzes realizados.
+
 A escolha de uma solução a um problema real foi um desafio já que existiam várias possibilidades reais, porém como o tempo era relativamente curto, teve que se pensar na viabilidade da solução em si, mesmo que como um MVP.
 
 ## Aprendizados
 
 Com o tema do hackaton foi possível visualizar de maneira mais clara que a educação pública no Brasil possui diversos pontos no qual a tecnologia pode estar ajudando, apresentando maneiras inovadoras e baratas para solucionar problemas complexos.
+
 Desta forma este projeto proporcionou uma visão mais abrangente de possíveis soluções de mundo real, não só na área da educação, mas em geral. Assim percebe-se a tecnologia como vez mais presente em todos os ramos existentes e como a mesma pode ajudar todas elas com soluções que estejam a alcance de todos.
+
 Cada vez mais o profissional qualificado em formações de tecnologia será necessário para que a evolução continue da maneira desejada, oferecendo serviços e preenchendo essas demandas crescentes.
 
 ## Futuro e próximos passos
