@@ -20,16 +20,11 @@ const quizItems = [
   },
   {
     icon: Number3,
-    content: 'Relatórios e estatísticas detalhadas: O sistema gera gráficos e relatórios que mostram as respostas e acertos dos alunos, permitindo uma visão clara e rápida do desempenho da turma, o que ajuda na tomada de decisões sobre o que revisar em aula.',
-    boldText: 'Relatórios e estatísticas detalhadas:',
-  },
-  {
-    icon: Number4,
     content: 'Facilidade de acesso para alunos: Os alunos podem acessar os quizzes cadastrados pelos professores e praticar os conteúdos de maneira autônoma, facilitando o aprendizado fora da sala de aula.',
     boldText: 'Facilidade de acesso para alunos:',
   },
   {
-    icon: Number5,
+    icon: Number4,
     content: 'Aprimoramento contínuo do ensino: Com as estatísticas detalhadas e a análise do desempenho dos alunos, os professores conseguem ajustar seus métodos de ensino e focar nas áreas que necessitam de mais atenção, promovendo um aprendizado mais eficaz.',
     boldText: 'Aprimoramento contínuo do ensino:',
   },
