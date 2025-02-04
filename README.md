@@ -52,11 +52,11 @@ Espera-se que o impacto seja diretamente ligado à melhoria de ensino, sendo que
 
 Como citado por Leonardo Pescinini Ruli, coordenador de Tecnologia no Instituto Sonho Grande, organização do 3º setor que apoia secretarias estaduais de educação:
 
-> “Um grande desafio na educação é que os estudantes não aprendem igualmente. Além dos estudantes brasileiros possuírem grandes defasagens em geral com relação ao conteúdo planejado na base nacional comum curricular, essas defasagens são distribuídas de maneira desigual entre os estudantes. Mesmo aqueles de uma mesma turma possuem diferentes níveis de proficiência nas habilidades e competências trabalhadas. Isso torna o trabalho dos professores ainda mais difícil, pois não basta passar o conteúdo conforme um roteiro padrão, é preciso avaliar o nível de compreensão em cada tópico para poder melhor direcionar o planejamento de suas aulas.
+> “Um grande desafio na educação é que os estudantes não aprendem igualmente. Além dos estudantes brasileiros possuírem grandes defasagens em geral com relação ao conteúdo planejado na base nacional comum curricular, essas defasagens são distribuídas de maneira desigual entre os estudantes. Mesmo aqueles de uma mesma turma possuem diferentes níveis de proficiência nas habilidades e competências trabalhadas. Isso torna o trabalho dos professores ainda mais difícil, pois não basta passar o conteúdo conforme um roteiro padrão, é preciso avaliar o nível de compreensão em cada tópico para poder melhor direcionar o planejamento de suas aulas."
 
-> Nos últimos anos trabalhando com escolas estaduais pelo Brasil, vi quão complexo é o trabalho do professor. Com pouco tempo para planejar as aulas no dia-a-dia, o professor precisa utilizar avaliações formativas para compreender como seus alunos estão no processo de aprendizagem. No entanto, considerando a rotina intensa dos professores e o tempo necessário para aplicar e corrigir esse tipo de avaliação, esse processo de verificação das aprendizagens ao longo do ano acaba não ocorrendo de forma tempestiva. Isso faz com que, por sua vez, o planejamento de aulas não esteja devidamente adequado às defasagens de cada turma, dificultando ainda mais o processo de aprendizagem para os estudantes.
+> "Nos últimos anos trabalhando com escolas estaduais pelo Brasil, vi quão complexo é o trabalho do professor. Com pouco tempo para planejar as aulas no dia-a-dia, o professor precisa utilizar avaliações formativas para compreender como seus alunos estão no processo de aprendizagem. No entanto, considerando a rotina intensa dos professores e o tempo necessário para aplicar e corrigir esse tipo de avaliação, esse processo de verificação das aprendizagens ao longo do ano acaba não ocorrendo de forma tempestiva. Isso faz com que, por sua vez, o planejamento de aulas não esteja devidamente adequado às defasagens de cada turma, dificultando ainda mais o processo de aprendizagem para os estudantes."
 
-> Esse problema é mais acentuado nas escolas públicas, uma vez que a disponibilidade de recursos é menor. Frente a esse cenário desafiador, acredito que o uso de ferramentas e sistemas pode auxiliar no dia-a-dia dos professores, com soluções relativamente baratas para problemas complexos. Por exemplo, a automatização de avaliações formativas pode apoiar os professores na identificação de defasagens na aprendizagem, com menor esforço e maior recorrência. Dessa maneira, os professores podem dedicar mais tempo ao planejamento de aulas que estejam adequadas ao nível de conhecimento de cada turma. Assim, os estudantes conseguirão compreender melhor os conteúdos. Embora tenhamos grandes desafios, o esforço para aplicar ferramentas digitais pode trazer ótimos resultados para a melhoria da educação pública brasileira.”
+> "Esse problema é mais acentuado nas escolas públicas, uma vez que a disponibilidade de recursos é menor. Frente a esse cenário desafiador, acredito que o uso de ferramentas e sistemas pode auxiliar no dia-a-dia dos professores, com soluções relativamente baratas para problemas complexos. Por exemplo, a automatização de avaliações formativas pode apoiar os professores na identificação de defasagens na aprendizagem, com menor esforço e maior recorrência. Dessa maneira, os professores podem dedicar mais tempo ao planejamento de aulas que estejam adequadas ao nível de conhecimento de cada turma. Assim, os estudantes conseguirão compreender melhor os conteúdos. Embora tenhamos grandes desafios, o esforço para aplicar ferramentas digitais pode trazer ótimos resultados para a melhoria da educação pública brasileira.”
 
 ## Descrição da Solução
 
@@ -147,8 +147,7 @@ Caso um quiz seja finalizado, os alunos não terão mais como enviar resoluçõe
 
 - **Visualização de Quizzes**
   Na visualização de quizzes existem 3 filtros, sendo eles: “Todos”, “Completos” e “Não Completos”. Em cada um deles existe uma possível listagem de quizzes, com o título e descrição do quiz.
-
-Caso o usuário clique em um quiz específico, o mesmo se iniciará e uma pergunta e suas respostas serão apresentadas ao mesmo. Assim que selecionar uma das alternativas, o sistema apresentará um feedback se a resposta estava certa ou errada e qual era a alternativa correta, um botão de “Ver explicação” que será abordado em um próximo item de funcionalidades, e um botão para a próxima pergunta. Quando o quiz terminar será mostrado um botão de “Mostrar feedback” que será abordado posteriormente também.
+  Caso o usuário clique em um quiz específico, o mesmo se iniciará e uma pergunta e suas respostas serão apresentadas ao mesmo. Assim que selecionar uma das alternativas, o sistema apresentará um feedback se a resposta estava certa ou errada e qual era a alternativa correta, um botão de “Ver explicação” que será abordado em um próximo item de funcionalidades, e um botão para a próxima pergunta. Quando o quiz terminar será mostrado um botão de “Mostrar feedback” que será abordado posteriormente também.
 
 - **Mostrar Feedback**
   O botão de “mostrar feedback” é apresentado ao finalizar um quiz, no qual uma mensagem de conclusão de uma informação de quantas perguntas foram acertadas e quantas foram as perguntas no total, exemplo: “Você acertou 4 de 5 perguntas”.
@@ -165,5 +164,29 @@ O diagrama de classe apresenta a estrutura e relacionamentos do projeto.
 
 ## Relatos de Experiências e Desafios
 
-- A criação de um quiz e toda a sua estrutura e relacionamentos foi mais difícil do que se previamente pensava, desta forma foi necessário criar esses relacionamentos para que as filtragens, cadastros e visualizações fossem possíveis, assim como os diversos tipos de relatórios sobre os quizzes realizados.
-- A escolha de uma solução a
+A criação de um quiz e toda a sua estrutura e relacionamentos foi mais difícil do que se previamente pensava, desta forma foi necessário criar esses relacionamentos para que as filtragens, cadastros e visualizações fossem possíveis, assim como os diversos tipos de relatórios sobre os quizzes realizados.
+A escolha de uma solução a um problema real foi um desafio já que existiam várias possibilidades reais, porém como o tempo era relativamente curto, teve que se pensar na viabilidade da solução em si, mesmo que como um MVP.
+
+## Aprendizados
+
+Com o tema do hackaton foi possível visualizar de maneira mais clara que a educação pública no Brasil possui diversos pontos no qual a tecnologia pode estar ajudando, apresentando maneiras inovadoras e baratas para solucionar problemas complexos.
+Desta forma este projeto proporcionou uma visão mais abrangente de possíveis soluções de mundo real, não só na área da educação, mas em geral. Assim percebe-se a tecnologia como vez mais presente em todos os ramos existentes e como a mesma pode ajudar todas elas com soluções que estejam a alcance de todos.
+Cada vez mais o profissional qualificado em formações de tecnologia será necessário para que a evolução continue da maneira desejada, oferecendo serviços e preenchendo essas demandas crescentes.
+
+## Futuro e próximos passos
+
+Este projeto “arranhou” a superfície de um problema antigo na educação, porém sempre há espaços para melhorias e aprimoramentos, algumas delas que foram abordadas pela equipe são:
+
+- **Comentários nos quizzes**
+  Cada quiz cadastrado pode receber comentários dos alunos para que as possíveis dúvidas relacionadas as questões possam ser solucionadas através do próprio sistema e de forma remota, gerando discussões e troca de conhecimentos entre os alunos e professores.
+
+- **Gráficos**
+  Adicionar gráficos para os feedbacks de conclusão em cada quiz, sendo possível o auxílio na obtenção de certas informações sobre o mesmo.
+
+- **Sistema de experiencia e recompensas**
+  A possibilidade de “gameficação” de sistemas está cada vez mais presente no mundo atual, criando mais aderência e engajamento de usuários nos mesmos, dessa forma seria possível adicionar algum tipo de sistema de experiência caso o usuário/aluno conclua um quiz e de acordo com a quantidade de acertos do mesmo.
+  Também sendo possível um sistema de recompensa onde os alunos que respondem os quizzes das aulas ganhem pontos extras nas provas ou uma bolsa específica na escola.
+
+- **Inteligência artificial**
+  Talvez o item mais importante e de maior impacto que qualquer sistema de tecnologia pode integrar. A integração de inteligência artificial pode ser adicionada ao sistema de quizzes de diversas maneiras, ao cadastrar um quiz o professor pode enviar um PDF ou arquivo da aula em questão, solicitar quantas questões ele deseja e qual a dificuldade do mesmo e dessa forma a IA desenvolveria de maneira automática os quizzes correspondentes, também sendo interessante o professor poder editar, negar e aceitar as perguntas e respostas sugeridas pela IA.
+  Também seria possível integrar a inteligência artificial ao sistema de comentários nos quizzes, no qual a própria IA ajudaria a sanar possíveis dúvidas dos alunos.
