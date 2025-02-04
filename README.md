@@ -38,6 +38,7 @@ O processo de desenvolvimento do sistema de quizzes foi estruturado em etapas cl
    - **Prototipação de Baixa Fidelidade**: Esboços iniciais do sistema foram criados em papel, focando na experiência do usuário (UX) e na usabilidade. Isso incluiu fluxos de cadastro de quizzes, realização de quizzes pelos alunos e visualização de resultados pelos professores.
 
 4. **Desenvolvimento Técnico:**
+   
    - **Definição da Arquitetura**: Optou-se por uma arquitetura front-end em Vue.js, com persistência de dados via Pinia e localStorage, para garantir uma solução leve e de fácil implementação.
    - **Divisão de Tarefas**: Cada funcionalidade do desenvolvimento teve seu momento de planejamento e desenvolvimento (ex.: cadastro de quizzes, autenticação de usuários, visualização de resultados).
    - **Integração Contínua**: Utilizando ferramentas como Git e GitHub, garantindo a integração contínua do código, com revisões e testes frequentes.
@@ -127,18 +128,23 @@ Utilize a URL [http://localhost:5173](http://localhost:5173) ou GitHub Pages par
 Todas as funcionalidades necessitam de autorização (token) para seu acesso, sendo necessária a realização de um login para que funcionem. Primeiro, abordaremos as funcionalidades de um usuário do tipo professor:
 
 - **Cadastro de Professor**
+  
   Cadastrar um novo usuário do tipo professor (“P”) no sistema. Neste formulário deve-se informar nome de usuário, senha, nome e escola(s) (escola(s) que o determinado professor trabalha), sendo essa informação de escola também uma seleção de cadastros prévios no sistema.
 
 - **Cadastro de Aluno**
+  
   Cadastrar um novo usuário do tipo aluno (“S” que se refere a student). Neste formulário deve-se informar nome de usuário, senha, nome, uma escola e uma classe.
 
 - **Cadastro de Escola**
+  
   Cadastrar uma nova escola, sendo que neste formulário deve-se informar o nome da escola e quantas salas/classes a mesma possui (essas informações posteriormente são associadas a cada aluno e professor no sistema para fazer filtragens específicas).
 
 - **Cadastro de Quiz**
+  
   Cadastrar um novo quiz. Neste formulário deve-se informar informações gerais como título do quiz, descrição do quiz e posteriormente uma lista de informações de questão, resposta “A”, “B”, “C”, “D” e “E” (apenas “A” e “B” são obrigatórias), qual a resposta correta e uma explicação caso necessário. Nesta explicação, inclusive, pode-se incluir link e materiais adicionais para a questão em si. Um determinado quiz pode ter n questões.
 
 - **Visualização do Histórico de Quizzes**
+  
   Na visualização de quizzes existem 4 filtros, sendo eles: “Todos”, “Finalizados”, “Não Finalizados” e “Deletados”. Em cada um deles existe uma possível listagem de quizzes, com o título e descrição do quiz, assim como um botão para finalizar um quiz e um botão para deletar.
 
 Caso um quiz seja finalizado, os alunos não terão mais como enviar resoluções ao mesmo (e o mesmo ficará com uma borda verde aos alunos e professores), dessa forma significando que o quiz foi concluído pelo professor. Caso um quiz seja deletado, o mesmo não aparecerá mais para os alunos, apenas os professores terão visibilidade do mesmo e ele ficará com uma borda vermelha.
@@ -146,16 +152,20 @@ Caso um quiz seja finalizado, os alunos não terão mais como enviar resoluçõe
 ### Funcionalidades de Usuários do Tipo Aluno:
 
 - **Visualização de Quizzes**
+  
   Na visualização de quizzes existem 3 filtros, sendo eles: “Todos”, “Completos” e “Não Completos”. Em cada um deles existe uma possível listagem de quizzes, com o título e descrição do quiz.
   Caso o usuário clique em um quiz específico, o mesmo se iniciará e uma pergunta e suas respostas serão apresentadas ao mesmo. Assim que selecionar uma das alternativas, o sistema apresentará um feedback se a resposta estava certa ou errada e qual era a alternativa correta, um botão de “Ver explicação” que será abordado em um próximo item de funcionalidades, e um botão para a próxima pergunta. Quando o quiz terminar será mostrado um botão de “Mostrar feedback” que será abordado posteriormente também.
 
 - **Mostrar Feedback**
+  
   O botão de “mostrar feedback” é apresentado ao finalizar um quiz, no qual uma mensagem de conclusão de uma informação de quantas perguntas foram acertadas e quantas foram as perguntas no total, exemplo: “Você acertou 4 de 5 perguntas”.
 
 - **Ver Explicação**
+  
   Cada pergunta cadastrada no sistema pelo professor pode conter uma explicação única, assim como um material adicional que pode ser acessado pelo aluno quando uma pergunta tiver sido respondida.
 
 - **Botão de “+” para Quizzes Concluídos**
+  
   Caso um quiz seja concluído, um botão de “+” irá aparecer ao lado do mesmo, neste existem todas as perguntas de maneira paginada, no qual informa-se qual a pergunta, quais eram todas as respostas possíveis, qual o usuário selecionou, qual era a resposta correta e se o mesmo acertou a questão.
 
 ## Diagrama de Classe
