@@ -178,15 +178,19 @@ Cada vez mais o profissional qualificado em formações de tecnologia será nece
 Este projeto “arranhou” a superfície de um problema antigo na educação, porém sempre há espaços para melhorias e aprimoramentos, algumas delas que foram abordadas pela equipe são:
 
 - **Comentários nos quizzes**
+  
   Cada quiz cadastrado pode receber comentários dos alunos para que as possíveis dúvidas relacionadas as questões possam ser solucionadas através do próprio sistema e de forma remota, gerando discussões e troca de conhecimentos entre os alunos e professores.
 
 - **Gráficos**
+  
   Adicionar gráficos para os feedbacks de conclusão em cada quiz, sendo possível o auxílio na obtenção de certas informações sobre o mesmo.
 
 - **Sistema de experiencia e recompensas**
+  
   A possibilidade de “gameficação” de sistemas está cada vez mais presente no mundo atual, criando mais aderência e engajamento de usuários nos mesmos, dessa forma seria possível adicionar algum tipo de sistema de experiência caso o usuário/aluno conclua um quiz e de acordo com a quantidade de acertos do mesmo.
   Também sendo possível um sistema de recompensa onde os alunos que respondem os quizzes das aulas ganhem pontos extras nas provas ou uma bolsa específica na escola.
 
 - **Inteligência artificial**
+  
   Talvez o item mais importante e de maior impacto que qualquer sistema de tecnologia pode integrar. A integração de inteligência artificial pode ser adicionada ao sistema de quizzes de diversas maneiras, ao cadastrar um quiz o professor pode enviar um PDF ou arquivo da aula em questão, solicitar quantas questões ele deseja e qual a dificuldade do mesmo e dessa forma a IA desenvolveria de maneira automática os quizzes correspondentes, também sendo interessante o professor poder editar, negar e aceitar as perguntas e respostas sugeridas pela IA.
   Também seria possível integrar a inteligência artificial ao sistema de comentários nos quizzes, no qual a própria IA ajudaria a sanar possíveis dúvidas dos alunos.
