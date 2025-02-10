@@ -34,7 +34,7 @@ export const students = [
 export const professors = [
   {
     userId: '1',
-    name: 'Professor 1',
+    name: 'Vinicius',
     schoolIds: ['1', '2'],
     isDeleted: false,
   },
